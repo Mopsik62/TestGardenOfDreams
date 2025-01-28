@@ -17,7 +17,7 @@
                 {
                     "name": "Shoot",
                     "type": "Button",
-                    "id": "0cc04e28-2f12-457e-a375-f4fbef6e67ef",
+                    "id": "6c237df0-c775-4707-b0bb-8f9faa25e935",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -93,7 +93,7 @@
                 },
                 {
                     "name": "",
-                    "id": "9711161b-1cbf-4380-b7ce-231c21edcff5",
+                    "id": "e9071446-c2e8-43b2-89a8-2a8751ae0659",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
