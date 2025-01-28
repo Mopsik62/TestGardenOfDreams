@@ -10,12 +10,14 @@ public class Player : Fighter
 
     public AmmoHandler Ammo;
 
-    private void Awake()
+    public override void Initialize()
     {
+        base.Initialize();
         CurAmmo = MaxAmmo;
         Ammo.SetMaxAmmo(CurAmmo);
         Ammo.SetCurAmmo(CurAmmo);
     }
+
     public void Shoot(InputAction.CallbackContext context)
     {
         if (context.performed)
