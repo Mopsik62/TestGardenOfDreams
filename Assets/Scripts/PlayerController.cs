@@ -27,8 +27,16 @@ public class PlayerController : MonoBehaviour
     }
     public void movePlayer()
     {
-        Vector2 movement = speed * Time.fixedDeltaTime * move;
-        rb.MovePosition(rb.position + movement);
+        Vector2 movement = speed * move;
+        rb.velocity = movement;
+        if (movement.x < 0)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f); // Зеркалим по оси X
+        }
+        else if (movement.x > 0)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f); // Оставляем спрайт без зеркала
+        }
         Debug.Log(move);
     }
 

@@ -14,7 +14,7 @@ public class Fighter : MonoBehaviour
         HealthBar.SetMaxHealth(MaxHp);
     }
 
-    protected void Death()
+    protected virtual void Death()
     {
         Debug.Log("Death of " + name);
     }
