@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
     public Transform player; 
     public float moveSpeed = 3f; 
     private Rigidbody2D rb;
-    private bool isChasing = false;
+    public bool isChasing = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +23,11 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void SetChase()
     {
-        if (other.CompareTag("Player"))  
-        {
-            isChasing = true;
-        }
+        isChasing = true;
     }
+
 
     void MoveTowardsPlayer()
     {

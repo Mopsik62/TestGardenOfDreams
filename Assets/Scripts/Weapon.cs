@@ -6,11 +6,12 @@ public class Weapon : MonoBehaviour
 {
     public int MaxAmmo;
     public int CurAmmo;
-    public float bulletSpeed = 10f; 
+    public float bulletSpeed = 10f;
+    public int weaponDamage;
 
     public AmmoHandler AmmoHandler;
     [SerializeField] private Transform muzzle;
-    [SerializeField] private Ammo ammo;
+    [SerializeField] private Ammo ammoType;
     public void Initialize()
     {
         CurAmmo = MaxAmmo;
@@ -23,9 +24,12 @@ public class Weapon : MonoBehaviour
         {
             CurAmmo--;
             AmmoHandler.SetCurAmmo(CurAmmo);
-
-            Ammo newAmmo = Instantiate(ammo, muzzle.position, transform.rotation);
-
+            Damage dmg = new()
+            {
+                damage = weaponDamage,
+            };
+            Ammo newAmmo = Instantiate(ammoType, muzzle.position, transform.rotation);
+            newAmmo.SetDamage(dmg);
             Rigidbody2D rb = newAmmo.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
