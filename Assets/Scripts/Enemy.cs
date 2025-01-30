@@ -23,6 +23,17 @@ public class Enemy : Fighter
             coll.gameObject.SendMessage("ReciveDamage", dmg);
         }
     }
+    private void OnCollisionStay2D(Collision2D coll)
+    {
+        if (coll.gameObject.CompareTag("Player"))
+        {
+            Damage dmg = new()
+            {
+                damage = contactDamage,
+            };
+            coll.gameObject.SendMessage("ReciveDamage", dmg);
+        }
+    }
 
     protected override void Death()
     {

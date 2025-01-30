@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private Vector2 move;
     private Rigidbody2D rb;
+    [SerializeField] private GameObject charSprite;
+
+
 
     void Awake()
     {
@@ -21,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         movePlayer();
     }
@@ -31,11 +34,11 @@ public class PlayerController : MonoBehaviour
         rb.velocity = movement;
         if (movement.x < 0)
         {
-            transform.localScale = new Vector3(-1f, 1f, 1f); // Зеркалим по оси X
+            charSprite.transform.localScale = new Vector3(-1f, 1f, 1f); // Зеркалим по оси X
         }
         else if (movement.x > 0)
         {
-            transform.localScale = new Vector3(1f, 1f, 1f); // Оставляем спрайт без зеркала
+            charSprite.transform.localScale = new Vector3(1f, 1f, 1f); // Оставляем спрайт без зеркала
         }
         Debug.Log(move);
     }

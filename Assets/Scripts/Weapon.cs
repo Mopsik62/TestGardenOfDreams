@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     public int CurAmmo;
     public float bulletSpeed = 10f;
     public int weaponDamage;
+    private bool canShoot = false;
 
     public AmmoHandler AmmoHandler;
     [SerializeField] private Transform muzzle;
@@ -20,6 +21,8 @@ public class Weapon : MonoBehaviour
     }
     public void Shot()
     {
+        if (!canShoot)
+           return;
         if (CurAmmo > 0) 
         {
             CurAmmo--;
@@ -41,4 +44,49 @@ public class Weapon : MonoBehaviour
             Debug.Log("No ammo left");
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            canShoot = true;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            // Получаем позицию врага и свою
+            Vector2 enemyPosition = col.transform.position;
+            Vector2 myPosition = transform.position;
+
+            // Вычисляем направление на врага
+            Vector2 direction = enemyPosition - myPosition;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; // Радианы -> Градусы
+
+            // Проверяем, чтобы оружие не переворачивалось
+            if (angle > 90 || angle < -90)
+            {
+                transform.localScale = new Vector3(1, -1, 1); // Флип по Y
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+
+            // Устанавливаем поворот (Z-угол)
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            canShoot = false;
+            transform.rotation = Quaternion.Euler(0, 0, 0); // Сброс поворота
+            transform.localScale = new Vector3(1, 1, 1); // Сброс флипа
+        }
+    }
+
+
 }

@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
     public float moveSpeed = 3f; 
     private Rigidbody2D rb;
     public bool isChasing = false;
+    [SerializeField] private GameObject charSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -38,11 +39,11 @@ public class EnemyMovement : MonoBehaviour
 
         if (direction.x < 0)
         {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+            charSprite.transform.localScale = new Vector3(-1f, 1f, 1f);
         } 
         else if (direction.x > 0)
         {
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            charSprite.transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
     }
