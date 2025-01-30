@@ -20,4 +20,13 @@ public class Player : Fighter
             weapon.Shot();
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("Item"))
+        {
+            ItemController itemConroller = coll.gameObject.GetComponent<ItemController>();
+            itemConroller.Pickup();
+        }
+    }
 }
