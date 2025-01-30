@@ -56,25 +56,21 @@ public class Weapon : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Enemy"))
         {
-            // Получаем позицию врага и свою
             Vector2 enemyPosition = col.transform.position;
             Vector2 myPosition = transform.position;
 
-            // Вычисляем направление на врага
             Vector2 direction = enemyPosition - myPosition;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; // Радианы -> Градусы
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; 
 
-            // Проверяем, чтобы оружие не переворачивалось
             if (angle > 90 || angle < -90)
             {
-                transform.localScale = new Vector3(1, -1, 1); // Флип по Y
+                transform.localScale = new Vector3(1, -1, 1);
             }
             else
             {
                 transform.localScale = new Vector3(1, 1, 1);
             }
 
-            // Устанавливаем поворот (Z-угол)
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
@@ -83,8 +79,8 @@ public class Weapon : MonoBehaviour
         if (col.gameObject.CompareTag("Enemy"))
         {
             canShoot = false;
-            transform.rotation = Quaternion.Euler(0, 0, 0); // Сброс поворота
-            transform.localScale = new Vector3(1, 1, 1); // Сброс флипа
+            transform.rotation = Quaternion.Euler(0, 0, 0); 
+            transform.localScale = new Vector3(1, 1, 1); 
         }
     }
 

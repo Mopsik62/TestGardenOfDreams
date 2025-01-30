@@ -10,9 +10,10 @@ public class EnemyMovement : MonoBehaviour
     public bool isChasing = false;
     [SerializeField] private GameObject charSprite;
 
-    // Start is called before the first frame update
+
     void Start()
     {
+        player = GameObject.Find("Character").transform; 
         rb = GetComponent<Rigidbody2D>(); 
     }
 

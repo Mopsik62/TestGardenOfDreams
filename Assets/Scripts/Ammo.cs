@@ -24,6 +24,7 @@ public class Ammo : MonoBehaviour
                 damage = bulletDamage,
             };
             col.gameObject.SendMessage("ReciveDamage", dmg);
+            Destroy(gameObject);
         }
     }
 
