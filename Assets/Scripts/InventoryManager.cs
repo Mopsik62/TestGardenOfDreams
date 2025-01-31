@@ -32,15 +32,16 @@ public class InventoryManager : MonoBehaviour
 
     public void ListItems()
     {
-        foreach (Transform item in ItemContent)
+        for (int i = ItemContent.childCount - 1; i >= 0; i--)
         {
-            DestroyImmediate(item.gameObject);
+            // Удаляем дочерний объект по индексу i
+            DestroyImmediate(ItemContent.GetChild(i).gameObject);
         }
         foreach (var item in Items)
         {
             DisplayItem (item);
         }
-        InventoryItems = new InventoryItemController[0];
+        //InventoryItems = new InventoryItemController[0];
 
         SetInventoryItems();
     }
@@ -57,20 +58,20 @@ public class InventoryManager : MonoBehaviour
 
     public void SetInventoryItems()
     {
-       /* Debug.Log($"ItemContent has {ItemContent.transform.childCount} children");
+        //Debug.Log($"ItemContent has {ItemContent.transform.childCount} children");
 
         foreach (Transform child in ItemContent.transform)
         {
-            Debug.Log($"Child: {child.name}, Active: {child.gameObject.activeSelf}, Instance ID: {child.GetInstanceID()}");
-        }*/
-        // InventoryItems = new InventoryItemController[0];
+            //Debug.Log($"Child: {child.name}, Active: {child.gameObject.activeSelf}, Instance ID: {child.GetInstanceID()}");
+        }
+        //InventoryItems = new InventoryItemController[0];
         InventoryItems = ItemContent.GetComponentsInChildren<InventoryItemController>(false);
-       // Debug.Log("Items count = " + Items.Count);
+        //Debug.Log("Items count = " + Items.Count);
         for (int i =0; i < Items.Count; i++)
         {
             InventoryItems[i].AddItem(Items[i]);
           //  Debug.Log(i);
-          //  Debug.Log(Items[i].name);
+           // Debug.Log(Items[i].name);
         }
     }
 }

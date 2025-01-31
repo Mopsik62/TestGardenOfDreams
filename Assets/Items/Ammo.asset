@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   itemName: Ammo
-  value: 3
   icon: {fileID: 21300000, guid: 4b25054a62d22ac468df1bf630bcc0e8, type: 3}
+  stackable: 1
+  maxStackSize: 10
