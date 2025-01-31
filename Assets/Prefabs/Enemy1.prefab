@@ -519,7 +519,10 @@ MonoBehaviour:
   CurHp: 2
   immuneTime: 0.01
   HealthBar: {fileID: 7329667786099033171}
-  Loot: {fileID: 0}
+  Loot:
+  - {fileID: 4277504278471301804, guid: 8c90bf664a382b143b04659495201461, type: 3}
+  - {fileID: 5402079793851400936, guid: d1b79435fc181024586e946cbb78cf7f, type: 3}
+  - {fileID: 7485943328898534186, guid: ebb01abe61f0a764589514c5649875cc, type: 3}
   contactDamage: 1
 --- !u!1 &4374499372155296406
 GameObject:

@@ -16,7 +16,7 @@ public class Player : Fighter
     {
         if (context.performed)
         {
-            Debug.Log("Shoot");
+            //Debug.Log("Shoot");
             weapon.Shot();
         }
     }

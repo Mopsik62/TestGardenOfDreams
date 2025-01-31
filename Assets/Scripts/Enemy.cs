@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : Fighter
 {
-    [SerializeField] private GameObject Loot;
+    [SerializeField] private GameObject[] Loot;
     public int contactDamage;
     protected override void Awake()
     {
@@ -38,6 +38,6 @@ public class Enemy : Fighter
     protected override void Death()
     {
         base.Death();
-        Instantiate(Loot);
+        Instantiate(Loot[Random.Range(0, Loot.Length)], transform.position, Quaternion.identity);
     }
 }

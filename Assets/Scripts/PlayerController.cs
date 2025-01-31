@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
-        Debug.Log(move);
+        //Debug.Log(move);
 
     }
 
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         {
             charSprite.transform.localScale = new Vector3(1f, 1f, 1f); // Оставляем спрайт без зеркала
         }
-        Debug.Log(move);
+       // Debug.Log(move);
     }
 
 }

@@ -40,7 +40,7 @@ public class Fighter : MonoBehaviour
 
     protected virtual void Death()
     {
-        Debug.Log("Death of " + name);
+        //Debug.Log("Death of " + name);
         Destroy(gameObject);
     }
 }

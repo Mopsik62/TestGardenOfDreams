@@ -72,6 +72,7 @@ public class Weapon : MonoBehaviour
             }
 
             transform.rotation = Quaternion.Euler(0, 0, angle);
+            canShoot = true;
         }
     }
     private void OnTriggerExit2D(Collider2D col)
