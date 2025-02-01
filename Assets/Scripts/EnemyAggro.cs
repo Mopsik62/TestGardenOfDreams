@@ -10,7 +10,7 @@ public class EnemyAggro : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            enemy.isChasing = true;
+            enemy.SetChase();
         }
     }
 }

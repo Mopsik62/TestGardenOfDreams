@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D rb;
     public bool isChasing = false;
     [SerializeField] private GameObject charSprite;
+    [SerializeField] private Transform frontLegs;
+    [SerializeField] private Transform backLegs;
+
 
 
     void Start()
@@ -27,13 +31,18 @@ public class EnemyMovement : MonoBehaviour
 
     public void SetChase()
     {
+        if (isChasing)
+            return;
+        frontLegs.DORotate(new Vector3(0, 0, 30), 1.0f).SetLoops(-1, LoopType.Yoyo);
+        backLegs.DORotate(new Vector3(0, 0, -30), 1.0f).SetLoops(-1, LoopType.Yoyo);
         isChasing = true;
+
     }
 
 
     void MoveTowardsPlayer()
     {
-       
+
         Vector2 direction = (player.position - transform.position).normalized;
 
         rb.velocity = direction * moveSpeed;

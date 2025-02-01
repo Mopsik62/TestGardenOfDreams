@@ -17,7 +17,6 @@ public class InventoryManager : MonoBehaviour
 
     public InventoryItemController[] InventoryItems;
 
-    private string savePath;
     public void Initialize()
     {
         Instance = this;
@@ -53,7 +52,8 @@ public class InventoryManager : MonoBehaviour
     public void Remove(Item item)
     {
         Items.Remove(item);
-        ListItems();
+        if (item.stackable)
+        { ListItems(); }
     }
 
     public void ListItems()
@@ -67,6 +67,7 @@ public class InventoryManager : MonoBehaviour
 
         foreach (var item in Items)
         {
+            Debug.Log(item.itemName);
             if (!processedItems.Contains(item.itemName)) // Проверяем, обрабатывали ли этот предмет
             {
                 CheckStackable(item);
@@ -78,6 +79,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         SetInventoryItems();
+
     }
 
     public void CheckStackable (Item item)
@@ -135,19 +137,6 @@ public class InventoryManager : MonoBehaviour
         InventoryItems = ItemContent.GetComponentsInChildren<InventoryItemController>(false);
         Debug.Log("Items count = " + Items.Count);
 
-        int uniqueStackableCount = Items
-        .Where(i => i.stackable) // Фильтруем только stackable-предметы
-        .GroupBy(i => i.itemName) // Группируем по названию
-        .Count(); // Считаем количество уникальных stackable-предметов
-
-        int nonStackableCount = Items
-         .Where(i => !i.stackable) // Фильтруем только не стакающиеся предметы
-          .Count(); // Считаем количество таких предметов
-
-        int uniqueCount = nonStackableCount + uniqueStackableCount;
-
-        Debug.Log("unique Items count = " + uniqueCount);
-
         int index = 0;
 
         for (int i =0; i < Items.Count(); i++)
@@ -200,7 +189,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (!File.Exists(path))
         {
-            Debug.LogWarning($"Файл сохранения не найден: {path}");
+          //  Debug.LogWarning($"Файл сохранения не найден: {path}");
             return;
         }
         string json = File.ReadAllText(path);
@@ -216,7 +205,7 @@ public class InventoryManager : MonoBehaviour
         }
        // ListItems();
 
-        Debug.Log($"Инвентарь загружен из: {path}");
+       // Debug.Log($"Инвентарь загружен из: {path}");
 
     }
 
@@ -229,7 +218,7 @@ public class InventoryManager : MonoBehaviour
             if (item.id == id)
                 return item;
         }
-        Debug.LogWarning($"Предмет с ID {id} не найден!");
+      //  Debug.LogWarning($"Предмет с ID {id} не найден!");
         return null;
     }
 }
