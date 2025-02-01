@@ -123,32 +123,62 @@ public class InventoryManager : MonoBehaviour
 
     public void SetInventoryItems()
     {
+        HashSet<string> processedItems = new HashSet<string>(); // "Черный список"
+
         //Debug.Log($"ItemContent has {ItemContent.transform.childCount} children");
 
-/*        foreach (Transform child in ItemContent.transform)
+   /*     foreach (Transform child in ItemContent.transform)
         {
             Debug.Log($"Child: {child.name}, Active: {child.gameObject.activeSelf}, Instance ID: {child.GetInstanceID()}");
         }*/
         //InventoryItems = new InventoryItemController[0];
         InventoryItems = ItemContent.GetComponentsInChildren<InventoryItemController>(false);
-       // Debug.Log("Items count = " + Items.Count);
+        Debug.Log("Items count = " + Items.Count);
 
         int uniqueStackableCount = Items
         .Where(i => i.stackable) // Фильтруем только stackable-предметы
         .GroupBy(i => i.itemName) // Группируем по названию
         .Count(); // Считаем количество уникальных stackable-предметов
+
         int nonStackableCount = Items
          .Where(i => !i.stackable) // Фильтруем только не стакающиеся предметы
           .Count(); // Считаем количество таких предметов
+
         int uniqueCount = nonStackableCount + uniqueStackableCount;
 
-       // Debug.Log("unique Items count = " + uniqueCount);
+        Debug.Log("unique Items count = " + uniqueCount);
 
-        for (int i =0; i < uniqueCount; i++)
+        int index = 0;
+
+        for (int i =0; i < Items.Count(); i++)
         {
-            InventoryItems[i].AddItem(Items[i]);
-          //  Debug.Log(i);
-           // Debug.Log(Items[i].name);
+           /* Debug.Log(Items[i].name);
+            Debug.Log("i = " + i);
+            Debug.Log("index = " + i);*/
+
+            if (Items[i].stackable)
+            {
+               // Debug.Log("Stackable");
+                if (!processedItems.Contains(Items[i].itemName))
+                {
+                    //Debug.Log("Впервые встречен, добавляем");
+                    processedItems.Add(Items[i].itemName);
+                    InventoryItems[index].AddItem(Items[i]);
+                    index++;
+                    //Debug.Log("Увеличили индекс");
+                    continue;
+
+                }
+                else 
+                {
+                   // Debug.Log("Уже есть, не добавляем");
+                    continue;
+                }
+            }
+           // Debug.Log("Если не стакабл");
+            InventoryItems[index].AddItem(Items[i]);
+            index++;
+           // Debug.Log("index  after = " + index);
         }
     }
 
@@ -181,9 +211,10 @@ public class InventoryManager : MonoBehaviour
             Item loadedItem = FindItemByID(id);
             if (loadedItem != null)
             {
-                Items.Add(loadedItem);
+                Add(loadedItem);
             }
         }
+       // ListItems();
 
         Debug.Log($"Инвентарь загружен из: {path}");
 
