@@ -9,6 +9,7 @@ public class EnemyMovement : MonoBehaviour
     public float moveSpeed = 3f; 
     private Rigidbody2D rb;
     public bool isChasing = false;
+    private int lastDirection = 1; // 1 Ч направо, -1 Ч налево
     [SerializeField] private GameObject charSprite;
     [SerializeField] private Transform frontLegs;
     [SerializeField] private Transform backLegs;
@@ -33,8 +34,6 @@ public class EnemyMovement : MonoBehaviour
     {
         if (isChasing)
             return;
-        frontLegs.DORotate(new Vector3(0, 0, 30), 1.0f).SetLoops(-1, LoopType.Yoyo);
-        backLegs.DORotate(new Vector3(0, 0, -30), 1.0f).SetLoops(-1, LoopType.Yoyo);
         isChasing = true;
 
     }
@@ -47,13 +46,14 @@ public class EnemyMovement : MonoBehaviour
 
         rb.velocity = direction * moveSpeed;
 
-        if (direction.x < 0)
+        int currentDirection = direction.x < 0 ? -1 : 1;
+
+        if (currentDirection != lastDirection)
         {
-            charSprite.transform.localScale = new Vector3(-1f, 1f, 1f);
-        } 
-        else if (direction.x > 0)
-        {
-            charSprite.transform.localScale = new Vector3(1f, 1f, 1f);
+            charSprite.transform.localScale = new Vector3(currentDirection, 1f, 1f);
+ 
+
+            lastDirection = currentDirection; // ќбновл€ем текущее направление
         }
 
     }
