@@ -11,10 +11,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Tilemap floorTilemap;
     [SerializeField] private Tilemap obstacleTilemap;
     [SerializeField] private Tilemap wallTilemap;
+    private string savePath;
+
 
 
     public void Initialize()
     {
+        savePath = @"D:\UNITY\TestGardenOfDreams\Assets\Saves\inventory.json";
         BoundsInt bounds = floorTilemap.cellBounds;
 
         List<Vector3Int> validSpawnPositions = new List<Vector3Int>();
@@ -36,5 +39,15 @@ public class GameManager : MonoBehaviour
                 Instantiate(enemy, worldPos, Quaternion.identity);  
             }
         }
+        LoadGame();
+    }
+    public void SaveInventory()
+    {
+        InventoryManager.Instance.SaveInventory(savePath);
+
+    }
+    public void LoadGame()
+    {
+        InventoryManager.Instance.LoadInventory(savePath);
     }
 }

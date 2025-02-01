@@ -294,11 +294,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 12.662031, y: 35.31002}
-      - {x: -33.627266, y: 34.823257}
-      - {x: -33.672447, y: -28.379566}
-      - {x: 63.285255, y: -28.583792}
-      - {x: 63.035854, y: 35.027485}
+    - - {x: 13.1050415, y: 35.10537}
+      - {x: -33.460564, y: 35.10537}
+      - {x: -33.46056, y: -28.379566}
+      - {x: 63.285255, y: -28.37957}
+      - {x: 63.28526, y: 35.10537}
 --- !u!4 &96411752
 Transform:
   m_ObjectHideFlags: 0
@@ -84833,6 +84833,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1248342029}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SaveInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1531764427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84997,6 +85009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 268527510}
   _weapon: {fileID: 845874138}
+  _inventoryManager: {fileID: 1248342031}
   _gameManager: {fileID: 1248342029}
 --- !u!4 &1561993922
 Transform:

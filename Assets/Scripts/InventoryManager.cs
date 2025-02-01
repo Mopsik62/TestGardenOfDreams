@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+using System.IO;
+
 
 public class InventoryManager : MonoBehaviour
 {
@@ -14,11 +16,13 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryItem; //prefab
 
     public InventoryItemController[] InventoryItems;
-    private void Awake()
+
+    private string savePath;
+    public void Initialize()
     {
         Instance = this;
     }
-
+ 
     public void Add(Item item)
     {
 
@@ -86,9 +90,9 @@ public class InventoryManager : MonoBehaviour
             {
                 if (stackableItem.itemName == item.itemName)
                 { count++; }
-                Debug.Log("Настакано = " + count);
+             //   Debug.Log("Настакано = " + count);
             }
-            Debug.Log("Display item by CheckStackable");
+          //  Debug.Log("Display item by CheckStackable");
             DisplayItem(item, count);
         }
         else
@@ -127,7 +131,7 @@ public class InventoryManager : MonoBehaviour
         }*/
         //InventoryItems = new InventoryItemController[0];
         InventoryItems = ItemContent.GetComponentsInChildren<InventoryItemController>(false);
-        Debug.Log("Items count = " + Items.Count);
+       // Debug.Log("Items count = " + Items.Count);
 
         int uniqueStackableCount = Items
         .Where(i => i.stackable) // Фильтруем только stackable-предметы
@@ -138,7 +142,7 @@ public class InventoryManager : MonoBehaviour
           .Count(); // Считаем количество таких предметов
         int uniqueCount = nonStackableCount + uniqueStackableCount;
 
-        Debug.Log("unique Items count = " + uniqueCount);
+       // Debug.Log("unique Items count = " + uniqueCount);
 
         for (int i =0; i < uniqueCount; i++)
         {
@@ -146,5 +150,55 @@ public class InventoryManager : MonoBehaviour
           //  Debug.Log(i);
            // Debug.Log(Items[i].name);
         }
+    }
+
+    public void SaveInventory (string path)
+    {
+        InventoryData data = new InventoryData();
+        foreach (var item in Items)
+        {
+            data.itemIDs.Add(item.id);
+        }
+
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(path, json);
+
+
+        Debug.Log($"Инвентарь сохранен в: {path}");
+    }
+    public void LoadInventory(string path)
+    {
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning($"Файл сохранения не найден: {path}");
+            return;
+        }
+        string json = File.ReadAllText(path);
+        InventoryData data = new InventoryData();
+        data = JsonUtility.FromJson<InventoryData>(json);
+        foreach (var id in data.itemIDs)
+        {
+            Item loadedItem = FindItemByID(id);
+            if (loadedItem != null)
+            {
+                Items.Add(loadedItem);
+            }
+        }
+
+        Debug.Log($"Инвентарь загружен из: {path}");
+
+    }
+
+    private Item FindItemByID(int id)
+    {
+        Item[] allItems = Resources.LoadAll<Item>("Items");
+
+        foreach (var item in allItems)
+        {
+            if (item.id == id)
+                return item;
+        }
+        Debug.LogWarning($"Предмет с ID {id} не найден!");
+        return null;
     }
 }
