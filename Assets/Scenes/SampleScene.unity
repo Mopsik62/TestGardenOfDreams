@@ -83720,7 +83720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 4374499371845705194, guid: f5c669055601b9e4993d03edb0ffcfb7, type: 3}
-  enemyCount: 1
+  enemyCount: 3
   floorTilemap: {fileID: 333102802}
   obstacleTilemap: {fileID: 553601203}
   wallTilemap: {fileID: 663474234}
